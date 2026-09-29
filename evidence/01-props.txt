@@ -1,0 +1,13 @@
+ro.lineage.version                     18.1-20260415-UNOFFICIAL-zeroflte
+ro.build.version.release               11
+ro.build.version.security_patch        2024-02-05
+sys.boot_completed                     1
+ro.boot.mode                           
+ro.boot.bootloader                     G9209KEU2ERI2
+ro.product.device                      zeroflte
+bpf.progs_loaded                       
+init.svc.netd                          running
+init.svc.zygote                        running
+init.svc.vold                          running
+init.svc.ril-daemon                    running
+init.svc.ksud                          

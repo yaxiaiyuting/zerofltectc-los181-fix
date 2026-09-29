@@ -1,0 +1,300 @@
+--- upstream/reference/community-eur.dts	2026-09-30 00:11:31.621429144 +0800
++++ upstream/reference/patched-dtb.dts	2026-09-30 00:11:31.622429166 +0800
+@@ -4903,148 +4903,6 @@
+ 		gpio_scl = <0x55 0x03 0x01>;
+ 		status = "okay";
+ 
+-		s2mpb02@59 {
+-			compatible = "samsung,s2mpb02";
+-			reg = <0x59>;
+-			s2mpb02,irq-gpio = <0x56 0x02 0x00>;
+-			pinctrl-names = "default";
+-			pinctrl-0 = <0x57>;
+-
+-			regulators {
+-
+-				s2mpb02-buck1 {
+-					regulator-name = "VDD_1P6_DDR";
+-					regulator-min-microvolt = <0x186a00>;
+-					regulator-max-microvolt = <0x186a00>;
+-				};
+-
+-				s2mpb02-buck2 {
+-					regulator-name = "VDDD_CORE_0.8V_COMP";
+-					regulator-min-microvolt = <0x9eb10>;
+-					regulator-max-microvolt = <0xcf850>;
+-				};
+-
+-				s2mpb02-ldo1 {
+-					regulator-name = "VDDD_NORET_0.9V_COMP";
+-					regulator-min-microvolt = <0xdbba0>;
+-					regulator-max-microvolt = <0xdbba0>;
+-				};
+-
+-				s2mpb02-ldo2 {
+-					regulator-name = "VDDD_CORE_1.0V_COMP";
+-					regulator-min-microvolt = <0xf4240>;
+-					regulator-max-microvolt = <0xf4240>;
+-				};
+-
+-				s2mpb02-ldo3 {
+-					regulator-name = "VDDD_1.2V_CAM";
+-					regulator-min-microvolt = <0xf4240>;
+-					regulator-max-microvolt = <0x124f80>;
+-				};
+-
+-				s2mpb02-ldo4 {
+-					regulator-name = "VDDD_RET_1.0V_COMP";
+-					regulator-min-microvolt = <0xaae60>;
+-					regulator-max-microvolt = <0xf4240>;
+-				};
+-
+-				s2mpb02-ldo5 {
+-					regulator-name = "VDDD_1.2V_VT";
+-					regulator-min-microvolt = <0x124f80>;
+-					regulator-max-microvolt = <0x124f80>;
+-				};
+-
+-				s2mpb02-ldo6 {
+-					regulator-name = "VDDIO_1.8V_VT";
+-					regulator-min-microvolt = <0x1b7740>;
+-					regulator-max-microvolt = <0x1b7740>;
+-				};
+-
+-				s2mpb02-ldo7 {
+-					regulator-name = "VDDIO_1.8V_CAM";
+-					regulator-min-microvolt = <0x1b7740>;
+-					regulator-max-microvolt = <0x1b7740>;
+-				};
+-
+-				s2mpb02-ldo8 {
+-					regulator-name = "VDDIO_1.8V_COMP";
+-					regulator-min-microvolt = <0x1b7740>;
+-					regulator-max-microvolt = <0x1b7740>;
+-				};
+-
+-				s2mpb02-ldo9 {
+-					regulator-name = "VDDA_1.8V_COMP";
+-					regulator-min-microvolt = <0x1b7740>;
+-					regulator-max-microvolt = <0x1b7740>;
+-				};
+-
+-				s2mpb02-ldo10 {
+-					regulator-name = "VCC_DISPLAY_1.8V";
+-					regulator-min-microvolt = <0x1b7740>;
+-					regulator-max-microvolt = <0x1b7740>;
+-				};
+-
+-				s2mpb02-ldo11 {
+-					regulator-name = "VDDA_2.9V_CAM";
+-					regulator-min-microvolt = <0x2ab980>;
+-					regulator-max-microvolt = <0x2d0370>;
+-				};
+-
+-				s2mpb02-ldo12 {
+-					regulator-name = "VDDAF_2.8V_CAM";
+-					regulator-min-microvolt = <0x2ab980>;
+-					regulator-max-microvolt = <0x2ab980>;
+-				};
+-
+-				s2mpb02-ldo13 {
+-					regulator-name = "VDDA_2.9V_VT";
+-					regulator-min-microvolt = <0x2c4020>;
+-					regulator-max-microvolt = <0x2c4020>;
+-				};
+-
+-				s2mpb02-ldo14 {
+-					regulator-name = "OIS_VM_2.8V";
+-					regulator-min-microvolt = <0x2ab980>;
+-					regulator-max-microvolt = <0x2ab980>;
+-				};
+-
+-				s2mpb02-ldo15 {
+-					regulator-name = "OIS_VDD_2.8V";
+-					regulator-min-microvolt = <0x2ab980>;
+-					regulator-max-microvolt = <0x2ab980>;
+-				};
+-
+-				s2mpb02-ldo16 {
+-					regulator-name = "VCC_3.0V_LCD";
+-					regulator-min-microvolt = <0x2dc6c0>;
+-					regulator-max-microvolt = <0x2dc6c0>;
+-				};
+-
+-				s2mpb02-ldo17 {
+-					regulator-name = "tsp_avdd";
+-					regulator-min-microvolt = <0x325aa0>;
+-					regulator-max-microvolt = <0x325aa0>;
+-				};
+-			};
+-
+-			torch {
+-				status = "okay";
+-
+-				leds1 {
+-					ledname = "leds-sec1";
+-					id = <0x00>;
+-					brightness = <0x0f>;
+-					timeout = <0x03>;
+-				};
+-
+-				leds2 {
+-					ledname = "torch-sec1";
+-					id = <0x01>;
+-					brightness = <0x09>;
+-					timeout = <0x0f>;
+-				};
+-			};
+-		};
+ 	};
+ 
+ 	hsi2c@14E70000 {
+@@ -5374,6 +5232,148 @@
+ 			reg = <0x6c>;
+ 			status = "okay";
+ 		};
++      s2mpb02@59 {
++       compatible = "samsung,s2mpb02";
++       reg = <0x59>;
++       s2mpb02,irq-gpio = <0x56 0x02 0x00>;
++       pinctrl-names = "default";
++       pinctrl-0 = <0x57>;
++
++       regulators {
++
++        s2mpb02-buck1 {
++         regulator-name = "VDD_1P6_DDR";
++         regulator-min-microvolt = <0x186a00>;
++         regulator-max-microvolt = <0x186a00>;
++        };
++
++        s2mpb02-buck2 {
++         regulator-name = "VDDD_CORE_0.8V_COMP";
++         regulator-min-microvolt = <0x9eb10>;
++         regulator-max-microvolt = <0xcf850>;
++        };
++
++        s2mpb02-ldo1 {
++         regulator-name = "VDDD_NORET_0.9V_COMP";
++         regulator-min-microvolt = <0xdbba0>;
++         regulator-max-microvolt = <0xdbba0>;
++        };
++
++        s2mpb02-ldo2 {
++         regulator-name = "VDDD_CORE_1.0V_COMP";
++         regulator-min-microvolt = <0xf4240>;
++         regulator-max-microvolt = <0xf4240>;
++        };
++
++        s2mpb02-ldo3 {
++         regulator-name = "VDDD_1.2V_CAM";
++         regulator-min-microvolt = <0xf4240>;
++         regulator-max-microvolt = <0x124f80>;
++        };
++
++        s2mpb02-ldo4 {
++         regulator-name = "VDDD_RET_1.0V_COMP";
++         regulator-min-microvolt = <0xaae60>;
++         regulator-max-microvolt = <0xf4240>;
++        };
++
++        s2mpb02-ldo5 {
++         regulator-name = "VDDD_1.2V_VT";
++         regulator-min-microvolt = <0x124f80>;
++         regulator-max-microvolt = <0x124f80>;
++        };
++
++        s2mpb02-ldo6 {
++         regulator-name = "VDDIO_1.8V_VT";
++         regulator-min-microvolt = <0x1b7740>;
++         regulator-max-microvolt = <0x1b7740>;
++        };
++
++        s2mpb02-ldo7 {
++         regulator-name = "VDDIO_1.8V_CAM";
++         regulator-min-microvolt = <0x1b7740>;
++         regulator-max-microvolt = <0x1b7740>;
++        };
++
++        s2mpb02-ldo8 {
++         regulator-name = "VDDIO_1.8V_COMP";
++         regulator-min-microvolt = <0x1b7740>;
++         regulator-max-microvolt = <0x1b7740>;
++        };
++
++        s2mpb02-ldo9 {
++         regulator-name = "VDDA_1.8V_COMP";
++         regulator-min-microvolt = <0x1b7740>;
++         regulator-max-microvolt = <0x1b7740>;
++        };
++
++        s2mpb02-ldo10 {
++         regulator-name = "VCC_DISPLAY_1.8V";
++         regulator-min-microvolt = <0x1b7740>;
++         regulator-max-microvolt = <0x1b7740>;
++        };
++
++        s2mpb02-ldo11 {
++         regulator-name = "VDDA_2.9V_CAM";
++         regulator-min-microvolt = <0x2ab980>;
++         regulator-max-microvolt = <0x2d0370>;
++        };
++
++        s2mpb02-ldo12 {
++         regulator-name = "VDDAF_2.8V_CAM";
++         regulator-min-microvolt = <0x2ab980>;
++         regulator-max-microvolt = <0x2ab980>;
++        };
++
++        s2mpb02-ldo13 {
++         regulator-name = "VDDA_2.9V_VT";
++         regulator-min-microvolt = <0x2c4020>;
++         regulator-max-microvolt = <0x2c4020>;
++        };
++
++        s2mpb02-ldo14 {
++         regulator-name = "OIS_VM_2.8V";
++         regulator-min-microvolt = <0x2ab980>;
++         regulator-max-microvolt = <0x2ab980>;
++        };
++
++        s2mpb02-ldo15 {
++         regulator-name = "OIS_VDD_2.8V";
++         regulator-min-microvolt = <0x2ab980>;
++         regulator-max-microvolt = <0x2ab980>;
++        };
++
++        s2mpb02-ldo16 {
++         regulator-name = "VCC_3.0V_LCD";
++         regulator-min-microvolt = <0x2dc6c0>;
++         regulator-max-microvolt = <0x2dc6c0>;
++        };
++
++        s2mpb02-ldo17 {
++         regulator-name = "tsp_avdd";
++         regulator-min-microvolt = <0x325aa0>;
++         regulator-max-microvolt = <0x325aa0>;
++        };
++       };
++
++       torch {
++        status = "okay";
++
++        leds1 {
++         ledname = "leds-sec1";
++         id = <0x00>;
++         brightness = <0x0f>;
++         timeout = <0x03>;
++        };
++
++        leds2 {
++         ledname = "torch-sec1";
++         id = <0x01>;
++         brightness = <0x09>;
++         timeout = <0x0f>;
++        };
++       };
++      };
+ 	};
+ 
+ 	hsi2c@14E00000 {

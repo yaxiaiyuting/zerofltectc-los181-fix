@@ -1,0 +1,15 @@
+[gsm.current.phone-type]: [1]
+[gsm.network.type]: [Unknown]
+[gsm.version.ril-impl]: [Samsung RIL v4.0]
+[persist.radio.latest-modeltype0]: [2]
+[persist.radio.multisim.config]: [ss]
+[ril.ICC_TYPE0]: [0]
+[ril.RildInit]: [1]
+[ril.cpreset]: [0]
+[ril.dds.call.slotid]: [-1]
+[ril.debug.ntc]: [M:---, S:---, T:---, C:---, SMF:0]
+[ril.halservice.registered.slot1]: [false]
+[ril.hasisim]: [0]
+    mCallState=0
+    mServiceState={mVoiceRegState=1(OUT_OF_SERVICE), mDataRegState=1(OUT_OF_SERVICE), mChannelNumber=0, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=null, mOperatorAlphaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechnology=0(Unknown), mCssIndicator=unsupported, mNetworkId=0, mSystemId=0, mCdmaRoamingIndicator=0, mCdmaDefaultRoamingIndicator=0, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mLteEarfcnRsrpBoost=0, mNetworkRegistrationInfos=[], mNrFrequencyRange=0, mOperatorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=false}
+    mSignalStrength=null

@@ -1,0 +1,45 @@
+--- Wi-Fi ---
+Wi-Fi is enabled
+ rec[2]: time=09-29 23:55:18.447 processed=ConnectModeState org=DisconnectedState dest=<null> what=SUPPLICANT_STATE_CHANGE_EVENT screen=on 0 0 SSID: CMCC-YKPt-5G BSSID: cc:29:bd:dd:47:0c nid: 0 state: ASSOCIATING
+ rec[4]: time=09-29 23:55:18.565 processed=ConnectModeState org=DisconnectedState dest=<null> what=SUPPLICANT_STATE_CHANGE_EVENT screen=on 0 0 SSID: CMCC-YKPt-5G BSSID: cc:29:bd:dd:47:0c nid: 0 state: ASSOCIATED
+--- 相机 ---
+Number of camera devices: 2
+--- 传感器 ---
+Captured at: 23:58:16.668
+Sensor Device:
+Total 23 h/w sensors, 23 running 0 disabled clients:
+0x00000000) active-count = 1; sampling_period(ms) = {66.7}, selected = 66.67 ms; batching_period(ms) = {100.0}, selected = 100.00 ms
+0x00000006) active-count = 2; sampling_period(ms) = {200.0, 200.0}, selected = 200.00 ms; batching_period(ms) = {0.0, 0.0}, selected = 0.00 ms
+Sensor List:
+0000000000) MPU6500 Acceleration Sensor | Invensense      | ver: 1 | type: android.sensor.accelerometer(1) | perm: n/a | flags: 0x00000010
+	continuous | minRate=5.00Hz | maxRate=200.00Hz | FIFO (max,reserved) = (3000, 3000) events | non-wakeUp | data-injection, 
+0x00000001) YAS537 Magnetic Sensor    | Yamaha Corporation | ver: 1 | type: android.sensor.magnetic_field(2) | perm: n/a | flags: 0x00000000
+	continuous | minRate=5.00Hz | maxRate=100.00Hz | no batching | non-wakeUp | 
+0x00000003) MPU6500 Gyroscope Sensor  | Invensense      | ver: 1 | type: android.sensor.gyroscope(4) | perm: n/a | flags: 0x00000010
+	continuous | minRate=5.00Hz | maxRate=200.00Hz | no batching | non-wakeUp | data-injection, 
+--- 音频 ---
+Stream volumes (device: index)
+- STREAM_VOICE_CALL:
+   streamVolume:5
+   Devices: earpiece
+- STREAM_SYSTEM:
+--- 电池/温度 ---
+Current Battery Service state:
+  AC powered: false
+  USB powered: true
+  Wireless powered: false
+  Max charging current: 460000
+  Max charging voltage: 5000000
+  Charge counter: 0
+  status: 2
+  health: 2
+  present: true
+--- 存储 ---
+Filesystem       Size  Used Avail Use% Mounted on
+/dev/block/sda20  26G  810M   25G   4% /data/user/0
+/dev/block/sda18 2.9G  1.5G  1.3G  55% /system/etc/gps_debug.conf
+--- CPU/内存 ---
+2.36 1.35 0.60 2/1357 6683
+		total        used        free      shared     buffers
+Mem:             2703        2439         264           6          15
+-/+ buffers/cache:           2424         279

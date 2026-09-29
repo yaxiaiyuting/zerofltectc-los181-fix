@@ -1,0 +1,15 @@
+N: Name="sec_touchkey"
+H: Handlers=kbd event0 
+N: Name="sec_touchscreen"
+H: Handlers=event1 dt2w_input 
+N: Name="hrm_sensor"
+H: Handlers=event2 
+N: Name="hrmled_sensor"
+H: Handlers=event3 
+N: Name="light_sensor"
+H: Handlers=event4 
+N: Name="light_ir_sensor"
+H: Handlers=event5 
+N: Name="proximity_sensor"
+H: Handlers=event6 
+[init.svc.vendor.touch-hal-1-0]: [running]
