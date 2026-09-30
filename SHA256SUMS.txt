@@ -1,2 +1,3 @@
 # 发布校验和
 45ccdcefcda2ad49d70a973053303dad335c7885b06a44ed45bd23c4c3beae58  zerofltectc-los181-fix-v1.0.zip
+6d45c5e30f2ed087cdae779ef9d059a41777c47c97e4a32530c02de6510ac18c  zerofltectc-los20-fix-v2.0.zip

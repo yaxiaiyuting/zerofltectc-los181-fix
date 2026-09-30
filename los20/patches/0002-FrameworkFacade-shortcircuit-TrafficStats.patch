@@ -1,0 +1,71 @@
+--- packages/modules/Wifi/service/java/com/android/server/wifi/FrameworkFacade.java.orig	2026-10-01 01:37:14.805554907 +0800
++++ packages/modules/Wifi/service/java/com/android/server/wifi/FrameworkFacade.java	2026-10-01 01:37:14.816152105 +0800
+@@ -203,10 +203,20 @@
+     }
+ 
+     public long getTxPackets(String iface) {
++        // [zerofltectc] 3.10 内核上 TrafficStats 走 netd BPF，会让 system_server 在
++        // WifiHandlerThre 线程 SIGABRT。这里短路掉（返回 UNSUPPORTED=-1）。
++        if (android.os.SystemProperties.getBoolean("persist.wifi.skip_traffic_stats", true)) {
++            return TrafficStats.UNSUPPORTED;
++        }
+         return TrafficStats.getTxPackets(iface);
+     }
+ 
+     public long getRxPackets(String iface) {
++        // [zerofltectc] 3.10 内核上 TrafficStats 走 netd BPF，会让 system_server 在
++        // WifiHandlerThre 线程 SIGABRT。这里短路掉（返回 UNSUPPORTED=-1）。
++        if (android.os.SystemProperties.getBoolean("persist.wifi.skip_traffic_stats", true)) {
++            return TrafficStats.UNSUPPORTED;
++        }
+         return TrafficStats.getRxPackets(iface);
+     }
+ 
+@@ -288,6 +298,11 @@
+      * Wrapper for {@link TrafficStats#getMobileTxBytes}.
+      */
+     public long getMobileTxBytes() {
++        // [zerofltectc] 3.10 内核上 TrafficStats 走 netd BPF，会让 system_server 在
++        // WifiHandlerThre 线程 SIGABRT。这里短路掉（返回 UNSUPPORTED=-1）。
++        if (android.os.SystemProperties.getBoolean("persist.wifi.skip_traffic_stats", true)) {
++            return TrafficStats.UNSUPPORTED;
++        }
+         return TrafficStats.getMobileTxBytes();
+     }
+ 
+@@ -295,6 +310,11 @@
+      * Wrapper for {@link TrafficStats#getMobileRxBytes}.
+      */
+     public long getMobileRxBytes() {
++        // [zerofltectc] 3.10 内核上 TrafficStats 走 netd BPF，会让 system_server 在
++        // WifiHandlerThre 线程 SIGABRT。这里短路掉（返回 UNSUPPORTED=-1）。
++        if (android.os.SystemProperties.getBoolean("persist.wifi.skip_traffic_stats", true)) {
++            return TrafficStats.UNSUPPORTED;
++        }
+         return TrafficStats.getMobileRxBytes();
+     }
+ 
+@@ -302,6 +322,11 @@
+      * Wrapper for {@link TrafficStats#getTotalTxBytes}.
+      */
+     public long getTotalTxBytes() {
++        // [zerofltectc] 3.10 内核上 TrafficStats 走 netd BPF，会让 system_server 在
++        // WifiHandlerThre 线程 SIGABRT。这里短路掉（返回 UNSUPPORTED=-1）。
++        if (android.os.SystemProperties.getBoolean("persist.wifi.skip_traffic_stats", true)) {
++            return TrafficStats.UNSUPPORTED;
++        }
+         return TrafficStats.getTotalTxBytes();
+     }
+ 
+@@ -309,6 +334,11 @@
+      * Wrapper for {@link TrafficStats#getTotalRxBytes}.
+      */
+     public long getTotalRxBytes() {
++        // [zerofltectc] 3.10 内核上 TrafficStats 走 netd BPF，会让 system_server 在
++        // WifiHandlerThre 线程 SIGABRT。这里短路掉（返回 UNSUPPORTED=-1）。
++        if (android.os.SystemProperties.getBoolean("persist.wifi.skip_traffic_stats", true)) {
++            return TrafficStats.UNSUPPORTED;
++        }
+         return TrafficStats.getTotalRxBytes();
+     }
+ 

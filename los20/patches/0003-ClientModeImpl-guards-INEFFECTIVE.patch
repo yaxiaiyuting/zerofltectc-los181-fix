@@ -1,0 +1,167 @@
+--- packages/modules/Wifi/service/java/com/android/server/wifi/ClientModeImpl.java.orig	2026-10-01 00:48:31.607769166 +0800
++++ packages/modules/Wifi/service/java/com/android/server/wifi/ClientModeImpl.java	2026-10-01 01:17:18.534576977 +0800
+@@ -182,6 +182,14 @@
+  * {@link ClientModeManager} until b/160014176 is fixed.
+  */
+ public class ClientModeImpl extends StateMachine implements ClientMode {
++
++    // [ZEROFLTECTC-UEH] 该内核上 WiFi 初始化会在 WifiHandlerThre 线程抛未捕获异常，
++    // 导致整个 system_server 被 abort。装全局处理器把真实异常栈打出来。
++    static {
++        Thread.setDefaultUncaughtExceptionHandler((t, e) ->
++                android.util.Log.e("ZEROFLTECTC-UEH",
++                        "uncaught on " + t.getName() + ": " + e, e));
++    }
+     private static final String NETWORKTYPE = "WIFI";
+     @VisibleForTesting public static final short NUM_LOG_RECS_VERBOSE_LOW_MEMORY = 200;
+     @VisibleForTesting public static final short NUM_LOG_RECS_VERBOSE = 3000;
+@@ -3603,68 +3611,74 @@
+      * Helper method to start other services and get state ready for client mode
+      */
+     private void setupClientMode() {
+-        Log.d(getTag(), "setupClientMode() ifacename = " + mInterfaceName);
++        try {
++            Log.d(getTag(), "setupClientMode() ifacename = " + mInterfaceName);
+ 
+-        setMulticastFilter(true);
+-        registerForWifiMonitorEvents();
+-        if (isPrimary()) {
+-            mWifiLastResortWatchdog.clearAllFailureCounts();
+-        }
++            setMulticastFilter(true);
++            registerForWifiMonitorEvents();
++            if (isPrimary()) {
++                mWifiLastResortWatchdog.clearAllFailureCounts();
++            }
+ 
+-        // Initialize data structures
+-        mTargetBssid = SUPPLICANT_BSSID_ANY;
+-        mTargetNetworkId = WifiConfiguration.INVALID_NETWORK_ID;
+-        mLastBssid = null;
+-        mLastNetworkId = WifiConfiguration.INVALID_NETWORK_ID;
+-        mLastSubId = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+-        mLastSimBasedConnectionCarrierName = null;
+-        mLastSignalLevel = -1;
+-        if (mWifiGlobals.isConnectedMacRandomizationEnabled()) {
+-            mFailedToResetMacAddress = !mWifiNative.setStaMacAddress(
+-                    mInterfaceName, MacAddressUtils.createRandomUnicastAddress());
+-            if (mFailedToResetMacAddress) {
+-                Log.e(getTag(), "Failed to set random MAC address on ClientMode creation");
++            // Initialize data structures
++            mTargetBssid = SUPPLICANT_BSSID_ANY;
++            mTargetNetworkId = WifiConfiguration.INVALID_NETWORK_ID;
++            mLastBssid = null;
++            mLastNetworkId = WifiConfiguration.INVALID_NETWORK_ID;
++            mLastSubId = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
++            mLastSimBasedConnectionCarrierName = null;
++            mLastSignalLevel = -1;
++            if (mWifiGlobals.isConnectedMacRandomizationEnabled()) {
++                mFailedToResetMacAddress = !mWifiNative.setStaMacAddress(
++                        mInterfaceName, MacAddressUtils.createRandomUnicastAddress());
++                if (mFailedToResetMacAddress) {
++                    Log.e(getTag(), "Failed to set random MAC address on ClientMode creation");
++                }
+             }
+-        }
+-        mWifiInfo.setMacAddress(mWifiNative.getMacAddress(mInterfaceName));
+-        // TODO: b/79504296 This broadcast has been deprecated and should be removed
+-        sendSupplicantConnectionChangedBroadcast(true);
++            mWifiInfo.setMacAddress(mWifiNative.getMacAddress(mInterfaceName));
++            // TODO: b/79504296 This broadcast has been deprecated and should be removed
++            sendSupplicantConnectionChangedBroadcast(true);
+ 
+-        mWifiNative.setExternalSim(mInterfaceName, true);
++            mWifiNative.setExternalSim(mInterfaceName, true);
+ 
+-        mWifiDiagnostics.startPktFateMonitoring(mInterfaceName);
+-        mWifiDiagnostics.startLogging(mInterfaceName);
++            mWifiDiagnostics.startPktFateMonitoring(mInterfaceName);
++            mWifiDiagnostics.startLogging(mInterfaceName);
+ 
+-        mMboOceController.enable();
++            mMboOceController.enable();
+ 
+-        // Enable bluetooth coexistence scan mode when bluetooth connection is active.
+-        // When this mode is on, some of the low-level scan parameters used by the
+-        // driver are changed to reduce interference with bluetooth
+-        mWifiNative.setBluetoothCoexistenceScanMode(
+-                mInterfaceName, mWifiGlobals.isBluetoothConnected());
+-        sendNetworkChangeBroadcast(DetailedState.DISCONNECTED);
++            // Enable bluetooth coexistence scan mode when bluetooth connection is active.
++            // When this mode is on, some of the low-level scan parameters used by the
++            // driver are changed to reduce interference with bluetooth
++            mWifiNative.setBluetoothCoexistenceScanMode(
++                    mInterfaceName, mWifiGlobals.isBluetoothConnected());
++            sendNetworkChangeBroadcast(DetailedState.DISCONNECTED);
+ 
+-        // Disable legacy multicast filtering, which on some chipsets defaults to enabled.
+-        // Legacy IPv6 multicast filtering blocks ICMPv6 router advertisements which breaks IPv6
+-        // provisioning. Legacy IPv4 multicast filtering may be re-enabled later via
+-        // IpClient.Callback.setFallbackMulticastFilter()
+-        mWifiNative.stopFilteringMulticastV4Packets(mInterfaceName);
+-        mWifiNative.stopFilteringMulticastV6Packets(mInterfaceName);
+-
+-        // Set the right suspend mode settings
+-        mWifiNative.setSuspendOptimizations(mInterfaceName, mSuspendOptNeedsDisabled == 0
+-                && mContext.getResources().getBoolean(
+-                        R.bool.config_wifiSuspendOptimizationsEnabled));
+-
+-        enablePowerSave();
+-
+-        // Disable wpa_supplicant from auto reconnecting.
+-        mWifiNative.enableStaAutoReconnect(mInterfaceName, false);
+-        // STA has higher priority over P2P
+-        mWifiNative.setConcurrencyPriority(true);
++            // Disable legacy multicast filtering, which on some chipsets defaults to enabled.
++            // Legacy IPv6 multicast filtering blocks ICMPv6 router advertisements which breaks IPv6
++            // provisioning. Legacy IPv4 multicast filtering may be re-enabled later via
++            // IpClient.Callback.setFallbackMulticastFilter()
++            mWifiNative.stopFilteringMulticastV4Packets(mInterfaceName);
++            mWifiNative.stopFilteringMulticastV6Packets(mInterfaceName);
+ 
+-        // Retrieve and store the factory MAC address (on first bootup).
+-        retrieveFactoryMacAddressAndStoreIfNecessary();
++            // Set the right suspend mode settings
++            mWifiNative.setSuspendOptimizations(mInterfaceName, mSuspendOptNeedsDisabled == 0
++                    && mContext.getResources().getBoolean(
++                            R.bool.config_wifiSuspendOptimizationsEnabled));
++
++            enablePowerSave();
++
++            // Disable wpa_supplicant from auto reconnecting.
++            mWifiNative.enableStaAutoReconnect(mInterfaceName, false);
++            // STA has higher priority over P2P
++            mWifiNative.setConcurrencyPriority(true);
++
++            // Retrieve and store the factory MAC address (on first bootup).
++            retrieveFactoryMacAddressAndStoreIfNecessary();
++        } catch (Throwable t) {
++            // [zerofltectc] 该内核上 WiFi 初始化会抛未捕获异常并 abort 整个 system_server。
++            // 这里兜住并把真实异常打出来，避免进程被杀。
++            Log.e(getTag(), "setupClientMode() FAILED with Throwable: " + t, t);
++        }
+     }
+ 
+     /**
+@@ -6636,6 +6650,21 @@
+      */
+     @Nullable
+     private MacAddress retrieveFactoryMacAddressAndStoreIfNecessary() {
++        // [zerofltectc] 3.10 内核上取 factory MAC 会导致 system_server 在
++        // WifiHandlerThre 线程 SIGABRT（每 ~15 秒死一次）。用系统属性跳过该路径，
++        // 改用当前接口 MAC（身份 MAC），避免走到会崩的 HAL/config-store 组合。
++        if (android.os.SystemProperties.getBoolean(
++                "persist.wifi.skip_factory_mac", true)) {
++            Log.w(TAG, "skip_factory_mac enabled - using interface MAC instead");
++            String ifaceMac = mWifiNative.getMacAddress(mInterfaceName);
++            if (ifaceMac == null) return null;
++            try {
++                return MacAddress.fromString(ifaceMac);
++            } catch (IllegalArgumentException e) {
++                Log.w(TAG, "invalid interface MAC: " + ifaceMac);
++                return null;
++            }
++        }
+         boolean saveFactoryMacInConfigStore =
+                 mWifiGlobals.isSaveFactoryMacToConfigStoreEnabled();
+         if (saveFactoryMacInConfigStore) {

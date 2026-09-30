@@ -1,0 +1,158 @@
+--- packages/modules/Connectivity/framework-t/src/android/net/TrafficStats.java.orig	2026-10-01 02:52:52.200268190 +0800
++++ packages/modules/Connectivity/framework-t/src/android/net/TrafficStats.java	2026-10-01 02:53:17.715307671 +0800
+@@ -729,6 +729,12 @@
+      */
+     public static long getTxPackets(@NonNull String iface) {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getIfaceStats(iface, TYPE_TX_PACKETS);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();
+@@ -752,6 +758,12 @@
+      */
+     public static long getRxPackets(@NonNull String iface) {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getIfaceStats(iface, TYPE_RX_PACKETS);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();
+@@ -775,6 +787,12 @@
+      */
+     public static long getTxBytes(@NonNull String iface) {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getIfaceStats(iface, TYPE_TX_BYTES);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();
+@@ -798,6 +816,12 @@
+      */
+     public static long getRxBytes(@NonNull String iface) {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getIfaceStats(iface, TYPE_RX_BYTES);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();
+@@ -855,6 +879,12 @@
+      */
+     public static long getTotalTxPackets() {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getTotalStats(TYPE_TX_PACKETS);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();
+@@ -872,6 +902,12 @@
+      */
+     public static long getTotalRxPackets() {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getTotalStats(TYPE_RX_PACKETS);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();
+@@ -889,6 +925,12 @@
+      */
+     public static long getTotalTxBytes() {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getTotalStats(TYPE_TX_BYTES);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();
+@@ -906,6 +948,12 @@
+      */
+     public static long getTotalRxBytes() {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getTotalStats(TYPE_RX_BYTES);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();
+@@ -932,6 +980,12 @@
+      */
+     public static long getUidTxBytes(int uid) {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getUidStats(uid, TYPE_TX_BYTES);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();
+@@ -958,6 +1012,12 @@
+      */
+     public static long getUidRxBytes(int uid) {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getUidStats(uid, TYPE_RX_BYTES);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();
+@@ -984,6 +1044,12 @@
+      */
+     public static long getUidTxPackets(int uid) {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getUidStats(uid, TYPE_TX_PACKETS);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();
+@@ -1010,6 +1076,12 @@
+      */
+     public static long getUidRxPackets(int uid) {
+         try {
++            // [zerofltectc] 3.10 内核上 netd 的 BPF map 打不开，BpfMap.h:53 会裸 abort() 整个
++            // system_server（已实测触发点：SyncManager.getTotalBytesTransferredByUid）。
++            if (android.os.SystemProperties.getBoolean("persist.net.skip_bpf_stats", true)) {
++                return UNSUPPORTED;
++            }
++
+             return getStatsService().getUidStats(uid, TYPE_RX_PACKETS);
+         } catch (RemoteException e) {
+             throw e.rethrowFromSystemServer();

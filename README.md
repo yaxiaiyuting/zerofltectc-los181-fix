@@ -1,4 +1,17 @@
-# SM-G9209 (Galaxy S6 中国电信版 / zerofltectc) —— LineageOS 18.1 移植修复
+# SM-G9209 (Galaxy S6 中国电信版 / zerofltectc) —— LineageOS 移植修复
+
+> ## 🆕 v2.0 已发布：LineageOS **20** (Android 13) 修复
+>
+> 从 LOS 18.1 升到 LOS 20 会无限卡开机 —— 三个根因（内核缺 eBPF 命令、
+> 设备树用错变体、AOSP `BpfMap.h` 裸 `abort()` 杀 system_server）已全部解决。
+> 修复包：**[`zerofltectc-los20-fix-v2.0.zip`](https://github.com/yaxiaiyuting/zerofltectc-los181-fix/releases/latest)**（11.6 MB，TWRP 直刷）
+> ｜ 详情：**[`los20/README.md`](los20/README.md)**
+>
+> root 用 **KernelSU**（内核已内置 `CONFIG_KSU=y`），不要用 Magisk。
+
+---
+
+# （v1.0）LineageOS 18.1 移植修复
 
 > **⬇️ 下载修复包**：[`zerofltectc-los181-fix-v1.0.zip`](https://github.com/yaxiaiyuting/zerofltectc-los181-fix/releases/latest)（8.3 MB，TWRP 直刷）
 >
@@ -24,6 +37,7 @@
 | 基座 ROM | `lineage-18.1-*-UNOFFICIAL-zeroflte.zip`（Android 11，[fakemanoan 构建](https://fakemanoan.github.io/downloads/s6.html)） |
 | Recovery | TWRP 3.7.0_9-2-fakeman（或更高） |
 | 修复包 | `zerofltectc-los181-fix-v1.0.zip`（8.3 MB） |
+| **v2.0（LOS 20）** | **[`zerofltectc-los20-fix-v2.0.zip`](https://github.com/yaxiaiyuting/zerofltectc-los181-fix/releases/latest)**（11.6 MB，Android 13）→ [`los20/README.md`](los20/README.md) |
 | 结果 | ✅ 正常开机、触摸可用、Wi-Fi/传感器/音频/存储正常 ｜ ⚠️ 电信卡无服务（见 §7） |
 
 > 本修复包**只适用于 SM-G9209**（安装脚本会校验机型，其他机型会被拒绝）。G920F 等欧版机型
