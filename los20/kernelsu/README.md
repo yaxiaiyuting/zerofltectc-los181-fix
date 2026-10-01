@@ -152,3 +152,40 @@ Gradle 9.7.1 / JDK 21 / Rust `aarch64-linux-android` target。
 `magiskinit` 替换链在本机的 `skip_initramfs` 引导流程下走不通。
 
 **结论：这台设备只能用 KernelSU。**
+
+---
+
+## ⚠️ 补充：Manager APK 必须「重新打包」才能用
+
+Gradle 直接编出来的 APK **没有 `libksud.so`**，Manager 会报：
+
+```
+W KsuCli: Cannot run program ".../lib/arm64/libksud.so": error=2, No such file or directory
+```
+
+新版 Manager 把 ksud 当作**原生库**（`libksud.so`）使用，必须用仓库的
+`repack_apk.py` 把 ksud 注入进去并重签名：
+
+```bash
+cd /path/to/backslashxx-KernelSU
+python3 repack_apk.py repack \
+  -b release -t release \
+  -a arm64-v8a \
+  -K manager/dummy.keystore \
+  -A alias -P password -S password \
+  --strip
+# 产物: dist/KernelSU_<version>_<code>-release.apk
+```
+
+这一步在 CI 里是独立的 `repack-manager` job（依赖 build-manager + build-ksud）。
+
+**验证注入成功**：
+```bash
+unzip -l dist/KernelSU_*.apk | grep libksud
+# 应看到 lib/arm64-v8a/libksud.so
+```
+
+**验证运行正常**（Manager 启动后看 logcat）：
+```
+I KernelSU: ksud::cli: command: Feature { command: Check { id: "kernel_umount" } }
+```

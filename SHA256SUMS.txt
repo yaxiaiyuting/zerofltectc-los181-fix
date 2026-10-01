@@ -1,4 +1,4 @@
 # 发布校验和
 45ccdcefcda2ad49d70a973053303dad335c7885b06a44ed45bd23c4c3beae58  zerofltectc-los181-fix-v1.0.zip
 6d45c5e30f2ed087cdae779ef9d059a41777c47c97e4a32530c02de6510ac18c  zerofltectc-los20-fix-v2.0.zip
-c18edc88e5c38eb7944d1c993508e75ba8fdfe9002296da20831f2daf99f64bf  zerofltectc-los20-ksu-v2.1.zip
+d639c6657992db2887c9ac19f087b63acbf869ce2e800548dfc206450224a847  zerofltectc-los20-ksu-v2.1.zip
