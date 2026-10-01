@@ -1,5 +1,17 @@
 # SM-G9209 (Galaxy S6 中国电信版 / zerofltectc) —— LineageOS 移植修复
 
+> ## 🆕 v2.1 已发布：自编译内核 + **KernelSU** + 修复版 TWRP
+>
+> · **KernelSU 32651**（backslashxx fork，支持内核 3.0~mainline）—— 模块终于能装了
+> · **修复版 TWRP**：原版 TWRP 的 DTB 同样是 EUR 变体 → 触摸无供电，现已修复（启动 29 秒 + 触摸可用）
+> · 一次性刷入：自编译内核 + TWRP + Manager + ksud
+> ｜ 修复包：**[`zerofltectc-los20-ksu-v2.1.zip`](https://github.com/yaxiaiyuting/zerofltectc-los181-fix/releases/latest)**（32.8 MB）
+> ｜ 详情：**[`los20/kernelsu/README.md`](los20/kernelsu/README.md)**
+>
+> ⚠️ **不要用 Magisk** —— `magiskboot` 处理不了三星 DHTB 设备树封装，必然卡第一屏。
+
+---
+
 > ## 🆕 v2.0 已发布：LineageOS **20** (Android 13) 修复
 >
 > 从 LOS 18.1 升到 LOS 20 会无限卡开机 —— 三个根因（内核缺 eBPF 命令、
